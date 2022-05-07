@@ -1,25 +1,56 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-/*
-                +-------------+
-                |             |
-                |     App     | Contains HelpMeChooseIOS App target and HelpMeChooseIOS unit-test target
-                |             |
-         +------+-------------+-------+
-         |         depends on         |
-         |                            |
- +----v-----+                   +-----v-----+
- |          |                   |           |
- |   Kit    |                   |     UI    |   Two independent frameworks to share code and start modularising your app
- |          |                   |           |
- +----------+                   +-----------+
 
- */
 
-// MARK: - Project
+let infoPlist: [String: InfoPlist.Value] = [
+    "CFBundleShortVersionString": "1.0",
+    "CFBundleVersion": "1",
+    "UILaunchStoryboardName": "LaunchScreen",
+    "NSAppTransportSecurity" : ["NSAllowsArbitraryLoads":true],
+    "UISupportedInterfaceOrientations" : ["UIInterfaceOrientationPortrait"],
+    "UIUserInterfaceStyle":"Light",
+    "UIApplicationSceneManifest" : ["UIApplicationSupportsMultipleScenes":true,
+                                    "UISceneConfigurations":[
+                                        "UIWindowSceneSessionRoleApplication":[[
+                                            "UISceneConfigurationName":"Default Configuration",
+                                            "UISceneDelegateClassName":"$(PRODUCT_MODULE_NAME).SceneDelegate"
+                                        ]]
+                                    ]
+                                   ]
+]
 
-// Creates our project using a helper function defined in ProjectDescriptionHelpers
-let project = Project.app(name: "HelpMeChooseIOS",
-                          platform: .iOS,
-                          additionalTargets: ["HelpMeChooseIOSKit", "HelpMeChooseIOSUI"])
+let project = Project(
+    name: "HelpMeChooseIOS",
+    organizationName: "JYKang",
+    settings: .settings(configurations: [
+        .debug(name: "Debug"),
+        .release(name: "Release")
+    ]),
+    targets: [
+        Target(
+            name: "HelpMeChooseIOS",
+            platform: .iOS,
+            product: .app,
+            bundleId: "io.tuist.HelpMeChooseIOS",
+            deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
+            infoPlist: .extendingDefault(with: infoPlist),
+            sources: ["Targets/HelpMeChooseIOS/Sources/**"],
+            resources: ["Targets/HelpMeChooseIOS/Resources/**"],
+            dependencies: [
+            ]
+        ),
+        Target(
+            name: "HelpMeChooseIOSTests",
+            platform: .iOS,
+            product: .unitTests,
+            bundleId: "io.tuist.HelpMeChooseIOSTests",
+            deploymentTarget : .iOS(targetVersion: "13.0.0", devices: .iphone),
+            infoPlist: .default,
+            sources: ["Targets/HelpMeChooseIOS/Tests/**"],
+            dependencies: [
+            ]
+        )
+    ]
+    
+)
