@@ -7,6 +7,6 @@ final class HelpMeChooseIOSTests: XCTestCase {
     }
     
     func test_twoPlusTwo() {
-        XCTAssertEqual(2+2, 4)
+        XCTAssertEqual(3+3, 6)
     }
 }
