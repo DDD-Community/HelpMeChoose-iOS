@@ -38,9 +38,23 @@ jobs:
     #    `Request Uername` : ${{ github.actor }}
     #    `Request Type` : ${{ github.event_name }}"}]}'
     
-    - name: Tuist Generate
-      run: tuist generate
-    
+    - name: Install Tuist
+      run: |
+        bash <(curl -Ls https://install.tuist.io)
+    - name: Generate project
+      run: |
+          tuist generate
+    - name: Build support
+      run: |
+          make build-support
+    - name: Build kit
+      run: |
+          make build-kit
+    - name: Build app
+      run: |
+          make build-app
+
+
     - name: Check Xcode
       run: ls -n /Applications/ | grep Xcode
     
