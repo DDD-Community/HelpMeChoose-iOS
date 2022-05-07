@@ -19,7 +19,7 @@ jobs:
       #PROJECT: pineapp.xcodeproj
       SCHEME: HelpMeChooseIOS
       #CONFIGURATION: Debug
-      DESTINATION: platform=iOS Simulator,name=iPhone 13,OS=15.0
+      DESTINATION: platform=iOS Simulator,name=iPhone 13
       #MATTERMOST_WEBHOOK_URL: https://mattermost.hwikx.com/hooks/cip4am3x4f885b7ayt4gu5ug1a
       #MATTERMOST_WEBHOOK_CHANNEL: private_mattermost_chat_test
 
