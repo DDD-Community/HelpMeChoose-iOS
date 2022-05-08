@@ -10,8 +10,8 @@ on:
 jobs:
   ### develop env ci (build & unit test)
   DEVELOP-CI:
-    runs-on: macos-12.2.1
-    #runs-on: macos-latest
+    #runs-on: macos-12.2.1
+    runs-on: macos-latest
     #runs-on: ubuntu-latest
     env:
       TARGET_ENV: Debug
@@ -19,13 +19,12 @@ jobs:
       #PROJECT: pineapp.xcodeproj
       SCHEME: HelpMeChooseIOS
       #CONFIGURATION: Debug
-      DESTINATION: platform=iOS Simulator,name=iPhone 13,OS=15.0
+      DESTINATION: platform=iOS Simulator,name=iPhone 13
       #MATTERMOST_WEBHOOK_URL: https://mattermost.hwikx.com/hooks/cip4am3x4f885b7ayt4gu5ug1a
       #MATTERMOST_WEBHOOK_CHANNEL: private_mattermost_chat_test
 
 
     steps:
-    - name: Checkout
     - uses: actions/checkout@v3
 
     #- name: Send CI Start Message
@@ -39,9 +38,15 @@ jobs:
     #    `Request Uername` : ${{ github.actor }}
     #    `Request Type` : ${{ github.event_name }}"}]}'
     
-    - name: Tuist Generate
-      run: tuist generate
-    
+    - name: Install Tuist
+      run: |
+        bash <(curl -Ls https://install.tuist.io)
+    - name: Generate project
+      run: |
+          tuist generate
+
+
+
     - name: Check Xcode
       run: ls -n /Applications/ | grep Xcode
     
