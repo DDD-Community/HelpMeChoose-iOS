@@ -12,4 +12,8 @@ final class HelpMeChooseIOSTests: XCTestCase {
     func test_temp() {
         XCTAssertEqual(6+6, 12)
     }
+   
+    func test_mutiple() {
+        XCTAssertEqual(2 * 2, 4)
+    }
 }
