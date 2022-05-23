@@ -33,14 +33,13 @@ jobs:
         MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
         FASTLANE_PASSWORD: '${{ secrets.FASTLANE_PASSWORD }}'
         MATCH_KEYCHAIN_PASSWORD: '${{ secrets.MATCH_KEYCHAIN_PASSWORD }}'
+        API_KEY_ID: '${{ secrets.API_KEY_ID }}'
+        API_ISSUER_ID: '${{ secrets.API_ISSUER_ID }}'
+        API_PRIVATE_KEY: '${{ secrets.API_PRIVATE_KEY }}'
     - name: Fastlane Upload
       run: |
         fastlane NewVersionUpload
       env:
-        MATCH_GIT_BASIC_AUTHORIZATION: '${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}'
-        MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
-        FASTLANE_PASSWORD: '${{ secrets.FASTLANE_PASSWORD }}'
-        MATCH_KEYCHAIN_PASSWORD: '${{ secrets.MATCH_KEYCHAIN_PASSWORD }}'
         API_KEY_ID: '${{ secrets.API_KEY_ID }}'
         API_ISSUER_ID: '${{ secrets.API_ISSUER_ID }}'
         API_PRIVATE_KEY: '${{ secrets.API_PRIVATE_KEY }}'
