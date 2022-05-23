@@ -14,7 +14,7 @@ API_PRIVATE_KEY = ENV["API_PRIVATE_KEY"]
 TEAM_ID = ENV["TEAM_ID"]
 
 desc "build app and upload to testflight"
-	lane :NewVersionUpload do
+	lane :debugUpload do
 
 	puts (API_KEY_ID)
 
@@ -38,7 +38,12 @@ end
 desc "Get certificates"
   lane :certificates do
 
-
+     app_store_connect_api_key(
+    		key_id: API_KEY_ID,
+    		issuer_id: API_ISSUER_ID,
+    		key_content: API_PRIVATE_KEY
+    )
+	
 	
 
     sync_code_signing(
