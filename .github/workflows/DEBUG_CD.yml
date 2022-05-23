@@ -2,7 +2,7 @@ name: DEBUG_CD
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 
 
 jobs:
