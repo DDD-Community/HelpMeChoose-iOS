@@ -38,7 +38,7 @@ jobs:
         API_PRIVATE_KEY: '${{ secrets.API_PRIVATE_KEY }}'
     - name: Fastlane Upload
       run: |
-        fastlane NewVersionUpload
+        fastlane debugUpload
       env:
         API_KEY_ID: '${{ secrets.API_KEY_ID }}'
         API_ISSUER_ID: '${{ secrets.API_ISSUER_ID }}'
