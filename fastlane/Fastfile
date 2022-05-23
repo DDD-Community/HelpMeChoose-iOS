@@ -16,8 +16,6 @@ TEAM_ID = ENV["TEAM_ID"]
 desc "build app and upload to testflight"
 	lane :debugUpload do
 
-	puts (API_KEY_ID)
-
 	
 	 app_store_connect_api_key(
     		key_id: API_KEY_ID,
