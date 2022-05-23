@@ -1,0 +1,109 @@
+AppName = "HelpMeChooseIOS"
+Scheme = "HelpMeChooseIOS"
+BundleId = "io.tuist.HelpMeChoose"
+
+ApiKeyPath = "fastlane/29H93BJQ55.json"
+
+#
+ENV['PROVISIONING_PROFILE_SPECIFIER'] = "match AppStore io.tuist.HelpMeChoose"
+#DEVELOPER_APP_ID = ENV["DEVELOPER_APP_ID"]
+
+API_KEY_ID = ENV["API_KEY_ID"]
+API_ISSUER_ID = ENV["API_ISSUER_ID"]
+API_PRIVATE_KEY = ENV["API_PRIVATE_KEY"]
+TEAM_ID = ENV["TEAM_ID"]
+
+desc "build app and upload to testflight"
+	lane :NewVersionUpload do
+
+	puts (API_KEY_ID)
+
+	
+	 app_store_connect_api_key(
+    		key_id: API_KEY_ID,
+    		issuer_id: API_ISSUER_ID,
+    		key_content: API_PRIVATE_KEY
+    	)
+
+	latest_build_number=latest_testflight_build_number
+	
+	buildApp "Debug"
+
+	pilot
+
+
+end
+
+
+desc "Get certificates"
+  lane :certificates do
+
+
+	
+
+    sync_code_signing(
+      	type: "development",
+      	app_identifier: BundleId,
+	force_for_new_devices: true,
+      	readonly: false
+    )
+
+    sync_code_signing(
+	type: "appstore",
+	app_identifier: BundleId,
+	readonly: false
+    )
+end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def buildApp(configuration)
+
+
+	update_code_signing_settings(
+  		use_automatic_signing: false,
+  		path: AppName + ".xcodeproj",
+	)
+	
+
+	update_project_team(
+  		path: AppName + ".xcodeproj",
+		teamid: TEAM_ID
+	)
+	
+	
+	#match(type: "appstore")
+
+	
+
+
+	build_app(
+		workspace: AppName + ".xcworkspace", 
+		scheme: Scheme, 
+		configuration: configuration,
+		xcargs: "-allowProvisioningUpdates",
+		export_method: "app-store",
+    		export_options: {
+			provisioningProfiles: { 
+        				BundleId => 'match Development io.tuist.HelpMeChoose'
+      			}
+    		},
+		xcargs: "PROVISIONING_PROFILE_SPECIFIER='match Development io.tuist.HelpMeChoose'"
+    	)
+end
+
+
+
+
+

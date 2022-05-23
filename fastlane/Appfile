@@ -1,0 +1,5 @@
+app_identifier("io.tuist.HelpMeChoose") # The bundle identifier of your app
+apple_id("gnejfejf2@icloud.com") # Your Apple email address
+team_name("JiYoun Kang")
+team_id("V4XA5J4GH9") # Developer Portal Team ID
+
