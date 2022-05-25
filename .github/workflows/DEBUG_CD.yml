@@ -1,46 +1,46 @@
-name: DEBUG_CD
+#name: DEBUG_CD
 
-on:
-  push:
-    branches: [ master ]
+#on:
+#  push:
+#    branches: [ master ]
 
 
-jobs:
-  build:
-
-    runs-on: macos-latest
-
-    steps:
-    - uses: actions/checkout@v2
+#jobs:
+#  build:
+#
+#    runs-on: macos-latest
+#
+#    steps:
+#    - uses: actions/checkout@v2
 #    - name: executing remote ssh commands using password
 #      uses: shimataro/ssh-key-action@v2
 #      with:
 #        key: ${{ secrets.SSH_KEY }} 
 #        name: id_rsa
 #        known_hosts: ${{ secrets.KNOWN_HOSTS }}
-
-    - name: Install Tuist
-      run: |
-        bash <(curl -Ls https://install.tuist.io)
-    - name: Generate project
-      run: |
-          tuist generate
-    - name: Fastlane Match
-      run: |
-        fastlane certificates
-      env:
-        MATCH_GIT_BASIC_AUTHORIZATION: '${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}'
-        MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
-        FASTLANE_PASSWORD: '${{ secrets.FASTLANE_PASSWORD }}'
-        MATCH_KEYCHAIN_PASSWORD: '${{ secrets.MATCH_KEYCHAIN_PASSWORD }}'
-        API_KEY_ID: '${{ secrets.API_KEY_ID }}'
-        API_ISSUER_ID: '${{ secrets.API_ISSUER_ID }}'
-        API_PRIVATE_KEY: '${{ secrets.API_PRIVATE_KEY }}'
-    - name: Fastlane Upload
-      run: |
-        fastlane debugUpload
-      env:
-        API_KEY_ID: '${{ secrets.API_KEY_ID }}'
-        API_ISSUER_ID: '${{ secrets.API_ISSUER_ID }}'
-        API_PRIVATE_KEY: '${{ secrets.API_PRIVATE_KEY }}'
-        TEAM_ID: '${{ secrets.TEAM_ID }}'
+#
+#    - name: Install Tuist
+#      run: |
+#        bash <(curl -Ls https://install.tuist.io)
+#    - name: Generate project
+#      run: |
+#          tuist generate
+#    - name: Fastlane Match
+#      run: |
+#        fastlane certificates
+#      env:
+#        MATCH_GIT_BASIC_AUTHORIZATION: '${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}'
+#        MATCH_PASSWORD: '${{ secrets.MATCH_PASSWORD }}'
+#        FASTLANE_PASSWORD: '${{ secrets.FASTLANE_PASSWORD }}'
+#        MATCH_KEYCHAIN_PASSWORD: '${{ secrets.MATCH_KEYCHAIN_PASSWORD }}'
+#        API_KEY_ID: '${{ secrets.API_KEY_ID }}'
+#        API_ISSUER_ID: '${{ secrets.API_ISSUER_ID }}'
+#        API_PRIVATE_KEY: '${{ secrets.API_PRIVATE_KEY }}'
+#    - name: Fastlane Upload
+#      run: |
+#        fastlane debugUpload
+#      env:
+#        API_KEY_ID: '${{ secrets.API_KEY_ID }}'
+#        API_ISSUER_ID: '${{ secrets.API_ISSUER_ID }}'
+#        API_PRIVATE_KEY: '${{ secrets.API_PRIVATE_KEY }}'
+#        TEAM_ID: '${{ secrets.TEAM_ID }}'
