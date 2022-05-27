@@ -33,7 +33,7 @@ extension HttpParameter {
                     .components(separatedBy: ",")
                     .reduce("") { $0 + toQuery(key: key, value: $1) }
             } else {
-                query += toQuery(key: key, value: valueString)
+                query = toQuery(key: key, value: valueString)
             }
             
             result += query
