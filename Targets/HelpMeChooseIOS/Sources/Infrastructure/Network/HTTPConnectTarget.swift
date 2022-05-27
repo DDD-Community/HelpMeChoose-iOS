@@ -8,15 +8,15 @@
 
 import Foundation
 
-public enum HTTPError: Error {
+public enum HttpError: Error {
     case undefined(Error)
     case failureStatusCode(Int)
     case emptyData
 }
 
-public protocol HTTPConnectTarget {
+public protocol HttpConnectTarget {
     var baseURL: String { get }
     var path: String { get }
-    var method: HTTPMethod { get }
-    var parameters: HTTPParameter { get }
+    var method: HttpMethod { get }
+    var parameters: HttpParameter { get }
 }

@@ -9,7 +9,7 @@
 import Foundation
 
 
-public protocol HTTPParameter {
+public protocol HttpParameter {
     var queryDict: [String: Any]? { get }
     var queryString: String { get }
     
@@ -17,7 +17,7 @@ public protocol HTTPParameter {
     var body: [String: Any]? { get }
 }
 
-extension HTTPParameter {
+extension HttpParameter {
     var queryString: String {
         var result = ""
         

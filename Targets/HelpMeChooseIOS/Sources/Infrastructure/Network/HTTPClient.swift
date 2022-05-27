@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class HTTPClient {
+public class HttpClient {
     public func jsonRequest(
     target: HTTPConnectTarget,
     timeoutInterval: TimeInterval = 0,
