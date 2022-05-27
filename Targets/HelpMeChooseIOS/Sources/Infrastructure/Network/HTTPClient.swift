@@ -10,9 +10,9 @@ import Foundation
 
 public class HttpClient {
     public func jsonRequest(
-    target: HTTPConnectTarget,
+    target: HttpConnectTarget,
     timeoutInterval: TimeInterval = 0,
-    completionHandler: @escaping (Result<[String: Any], HTTPError>) -> Void
+    completionHandler: @escaping (Result<[String: Any], HttpError>) -> Void
     ) {
         request(target: target) { result in
             switch result {
@@ -25,9 +25,9 @@ public class HttpClient {
     }
     
     public func request(
-    target: HTTPConnectTarget,
+    target: HttpConnectTarget,
     timeoutInterval: TimeInterval = 0,
-    completionHandler: @escaping (Result<Data, HTTPError>) -> Void
+    completionHandler: @escaping (Result<Data, HttpError>) -> Void
    ) {
        
        let url = URL(string:
