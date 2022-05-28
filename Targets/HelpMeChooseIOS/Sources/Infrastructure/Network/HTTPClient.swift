@@ -8,13 +8,22 @@
 
 import Foundation
 
-public class HttpClient {
+public protocol HttpClient {
+    func jsonRequest(
+        target: HttpConnectTarget,
+        config: HttpConfigration,
+        completionHandler: @escaping (Result<[String: Any], HttpError>) -> Void)
+    
+    
+}
+
+public class HttpClientImp {
     public func jsonRequest(
-    target: HttpConnectTarget,
-    timeoutInterval: TimeInterval = 0,
-    completionHandler: @escaping (Result<[String: Any], HttpError>) -> Void
+        target: HttpConnectTarget,
+        config: HttpConfigration,
+        completionHandler: @escaping (Result<[String: Any], HttpError>) -> Void
     ) {
-        request(target: target) { result in
+        request(target: target, config: config) { result in
             switch result {
             case let .success(value):
                 completionHandler(.success(value.toJsonDictionary()))
@@ -25,44 +34,44 @@ public class HttpClient {
     }
     
     public func request(
-    target: HttpConnectTarget,
-    timeoutInterval: TimeInterval = 0,
-    completionHandler: @escaping (Result<Data, HttpError>) -> Void
-   ) {
-       
-       let url = URL(string:
+        target: HttpConnectTarget,
+        config: HttpConfigration,
+        completionHandler: @escaping (Result<Data, HttpError>) -> Void
+    ) {
+        
+        let url = URL(string:
                         target.baseURL +
-                        target.path +
-                        target.parameters.queryString
-       )
-       
-       guard let url = url else {
-           assertionFailure("Invalid url")
-           return
-       }
-       
-       var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: timeoutInterval)
-       request.httpBody = target.parameters.body?.toJsonData()
-       
-       
-       URLSession.shared.dataTask(
-        with: request) { data, response, error in
-            if let error = error {
-                completionHandler(.failure(.undefined(error)))
-                return
-            }
-            if let response = response as? HTTPURLResponse,
-               !(200...299).contains(response.statusCode) {
-                completionHandler(.failure(.failureStatusCode(response.statusCode)))
-                return
-            }
-            guard let data = data else {
-                completionHandler(.failure(.emptyData))
-                return
-            }
-
-            completionHandler(.success(data))
+                      target.path +
+                      target.parameters.queryString
+        )
+        
+        guard let url = url else {
+            assertionFailure("Invalid url")
+            return
         }
+        
+        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: config.timeoutInterval)
+        request.httpBody = target.parameters.body?.toJsonData()
+        
+        
+        URLSession.shared.dataTask(
+            with: request) { data, response, error in
+                if let error = error {
+                    completionHandler(.failure(.undefined(error)))
+                    return
+                }
+                if let response = response as? HTTPURLResponse,
+                   !(200...299).contains(response.statusCode) {
+                    completionHandler(.failure(.failureStatusCode(response.statusCode)))
+                    return
+                }
+                guard let data = data else {
+                    completionHandler(.failure(.emptyData))
+                    return
+                }
+                
+                completionHandler(.success(data))
+            }
     }
     
 }
