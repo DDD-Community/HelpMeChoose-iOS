@@ -1,5 +1,5 @@
 //
-//  HttpParameter.swift
+//  HTTPParameter.swift
 //  HelpMeChooseIOS
 //
 //  Created by CanlabLee on 2022/05/21.
@@ -9,7 +9,7 @@
 import Foundation
 
 
-public protocol HttpParameter {
+public protocol HTTPParameter {
     var queryDict: [String: Any]? { get }
     var queryString: String { get }
     
@@ -17,7 +17,7 @@ public protocol HttpParameter {
     var body: [String: Any]? { get }
 }
 
-extension HttpParameter {
+extension HTTPParameter {
     var queryString: String {
         var result = ""
         

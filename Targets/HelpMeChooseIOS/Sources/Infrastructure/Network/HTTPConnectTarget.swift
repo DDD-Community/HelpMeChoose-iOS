@@ -1,5 +1,5 @@
 //
-//  HttpConnectTarget.swift
+//  HTTPConnectTarget.swift
 //  HelpMeChooseIOS
 //
 //  Created by CanlabLee on 2022/05/21.
@@ -8,15 +8,15 @@
 
 import Foundation
 
-public enum HttpError: Error {
+public enum HTTPError: Error {
     case undefined(Error)
     case failureStatusCode(Int)
     case emptyData
 }
 
-public protocol HttpConnectTarget {
+public protocol HTTPConnectTarget {
     var baseURL: String { get }
     var path: String { get }
-    var method: HttpMethod { get }
-    var parameters: HttpParameter { get }
+    var method: HTTPMethod { get }
+    var parameters: HTTPParameter { get }
 }
