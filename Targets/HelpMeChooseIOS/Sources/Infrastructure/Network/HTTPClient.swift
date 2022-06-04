@@ -9,12 +9,22 @@
 import Foundation
 
 public class HTTPClient {
+    private var interceptors: [HTTPInterceptor] = []
+    
+    public init(interceptors: [HTTPInterceptor]) {
+        self.interceptors = interceptors
+    }
+    
     public func jsonRequest(
     target: HTTPConnectTarget,
     timeoutInterval: TimeInterval = 0,
+    interceptor: HTTPInterceptor,
     completionHandler: @escaping (Result<[String: Any], HTTPError>) -> Void
     ) {
-        request(target: target) { result in
+        request(
+            target: target,
+            interceptor: interceptor
+        ) { result in
             switch result {
             case let .success(value):
                 completionHandler(.success(value.toJsonDictionary()))
@@ -27,8 +37,13 @@ public class HTTPClient {
     public func request(
     target: HTTPConnectTarget,
     timeoutInterval: TimeInterval = 0,
+    interceptor: HTTPInterceptor,
     completionHandler: @escaping (Result<Data, HTTPError>) -> Void
    ) {
+       let finalInterceptors = interceptors + [interceptor]
+       
+       finalInterceptors
+           .forEach { $0.willSendRequest() }
        
        let url = URL(string:
                         target.baseURL +
@@ -47,6 +62,8 @@ public class HTTPClient {
        
        URLSession.shared.dataTask(
         with: request) { data, response, error in
+            finalInterceptors.forEach { $0.didReceiveResponse() }
+            
             if let error = error {
                 completionHandler(.failure(.undefined(error)))
                 return
@@ -63,6 +80,8 @@ public class HTTPClient {
 
             completionHandler(.success(data))
         }
+       
+       finalInterceptors.forEach { $0.didSendRequest() }
     }
     
 }
