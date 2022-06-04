@@ -1,5 +1,5 @@
 //
-//  HTTPClient.swift
+//  HttpClient.swift
 //  HelpMeChooseIOS
 //
 //  Created by CanlabLee on 2022/05/21.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class HTTPClient {
+public class HttpClient {
     public func jsonRequest(
-    target: HTTPConnectTarget,
+    target: HttpConnectTarget,
     timeoutInterval: TimeInterval = 0,
-    completionHandler: @escaping (Result<[String: Any], HTTPError>) -> Void
+    completionHandler: @escaping (Result<[String: Any], HttpError>) -> Void
     ) {
         request(target: target) { result in
             switch result {
@@ -25,9 +25,9 @@ public class HTTPClient {
     }
     
     public func request(
-    target: HTTPConnectTarget,
+    target: HttpConnectTarget,
     timeoutInterval: TimeInterval = 0,
-    completionHandler: @escaping (Result<Data, HTTPError>) -> Void
+    completionHandler: @escaping (Result<Data, HttpError>) -> Void
    ) {
        
        let url = URL(string:
@@ -51,7 +51,7 @@ public class HTTPClient {
                 completionHandler(.failure(.undefined(error)))
                 return
             }
-            if let response = response as? HTTPURLResponse,
+            if let response = response as? HttpURLResponse,
                !(200...299).contains(response.statusCode) {
                 completionHandler(.failure(.failureStatusCode(response.statusCode)))
                 return

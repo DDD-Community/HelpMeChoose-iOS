@@ -1,5 +1,5 @@
 //
-//  HTTPMethod.swift
+//  HttpMethod.swift
 //  HelpMeChooseIOS
 //
 //  Created by CanlabLee on 2022/05/21.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum HTTPMethod: String {
+public enum HttpMethod: String {
     case get = "GET"
     case post = "POST"
     case put = "PUT"
