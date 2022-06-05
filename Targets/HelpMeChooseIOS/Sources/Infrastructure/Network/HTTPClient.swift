@@ -74,7 +74,9 @@ public class HTTPClient {
             }
             if let response = response as? HTTPURLResponse,
                !(200...299).contains(response.statusCode) {
-                completionHandler(.failure(.failureStatusCode(response.statusCode)))
+                completionHandler(
+                    finalInterceptors.reduce(.failure(.failureStatusCode(response.statusCode))) {$1.didReceiveResponse(result: $0, target: target)}
+                )
                 return
             }
             guard let data = data else {
@@ -82,7 +84,9 @@ public class HTTPClient {
                 return
             }
 
-            completionHandler(.success(data))
+            completionHandler(
+                finalInterceptors.reduce(.success(data)) { $1.didReceiveResponse(result: $0, target: target) }
+            )
         }
        
        finalInterceptors.forEach { $0.didSendRequest() }
