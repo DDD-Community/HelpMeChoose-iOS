@@ -6,14 +6,30 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
+import Foundation.NSURLRequest
+
 public protocol HTTPInterceptor {
+    func resetRequest(
+        request: URLRequest,
+        target: HTTPConnectTarget
+    ) -> URLRequest
     func willSendRequest()
     func didSendRequest()
-    func didReceiveResponse()
+    func didReceiveResponse<Success>(
+        result: Result<Success, HTTPError>,
+        target: HTTPConnectTarget
+    ) -> Result<Success, HTTPError>
 }
 
 extension HTTPInterceptor {
+    public func resetRequest(
+        request: URLRequest,
+        target: HTTPConnectTarget
+    ) -> URLRequest { return request }
     public func willSendRequest() {}
     public func didSendRequest() {}
-    public func didReceiveResponse() {}
+    public func didReceiveResponse<Success>(
+        result: Result<Success, HTTPError>,
+        target: HTTPConnectTarget
+    ) -> Result<Success, HTTPError> { return result }
 }

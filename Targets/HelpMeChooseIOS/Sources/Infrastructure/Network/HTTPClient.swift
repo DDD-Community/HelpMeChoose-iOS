@@ -42,9 +42,6 @@ public class HTTPClient {
    ) {
        let finalInterceptors = interceptors + [interceptor]
        
-       finalInterceptors
-           .forEach { $0.willSendRequest() }
-       
        let url = URL(string:
                         target.baseURL +
                         target.path +
@@ -59,13 +56,20 @@ public class HTTPClient {
        var request = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: timeoutInterval)
        request.httpBody = target.parameters.body?.toJsonData()
        
+       request = finalInterceptors.reduce(request) { $1.resetRequest(request: $0, target: target) }
+       
+       
+       finalInterceptors
+           .forEach { $0.willSendRequest() }
        
        URLSession.shared.dataTask(
         with: request) { data, response, error in
-            finalInterceptors.forEach { $0.didReceiveResponse() }
             
             if let error = error {
-                completionHandler(.failure(.undefined(error)))
+                
+                completionHandler(
+                    finalInterceptors.reduce(.failure(.undefined(error))) {$1.didReceiveResponse(result: $0, target: target)}
+                )
                 return
             }
             if let response = response as? HTTPURLResponse,
