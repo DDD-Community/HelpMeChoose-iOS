@@ -83,7 +83,7 @@ public class HTTPClient {
             }
 
             completionHandler(.success(data))
-        }.resume()
+        }
        
        finalInterceptors.forEach { $0.didSendRequest() }
     }
