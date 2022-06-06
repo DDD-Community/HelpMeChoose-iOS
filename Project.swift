@@ -38,6 +38,7 @@ let project = Project(
             sources: ["Targets/HelpMeChooseIOS/Sources/**"],
             resources: ["Targets/HelpMeChooseIOS/Resources/**"],
             dependencies: [
+                .external(name: "ModernRIBs")
             ]
         ),
         Target(
