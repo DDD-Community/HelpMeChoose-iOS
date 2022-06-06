@@ -20,7 +20,11 @@ let dependencies = Dependencies(
     swiftPackageManager: [
         .remote(
             url: "https://github.com/DevYeom/ModernRIBs.git",
-            requirement: .upToNextMajor(from: "1.0.0")
+            requirement: .upToNextMajor(from: "1.0.2")
+        ),
+        .remote(
+            url: "https://github.com/SnapKit/SnapKit.git",
+            requirement: .upToNextMajor(from: "5.0.1")
         )
     ],
     platforms: [.iOS]
