@@ -7,11 +7,14 @@ import ProjectDescription
 
 extension Project {
     /// Helper function to create the Project for this ExampleApp
-    public static func app(name: String, platform: Platform, additionalTargets: [String]) -> Project {
+    public static func app(
+        name: String,
+        platform: Platform,
+        additionalTargets: [TargetDependency]
+    ) -> Project {
         var targets = makeAppTargets(name: name,
                                      platform: platform,
-                                     dependencies: additionalTargets.map { TargetDependency.target(name: $0) })
-        targets += additionalTargets.flatMap({ makeFrameworkTargets(name: $0, platform: platform) })
+                                     dependencies: additionalTargets)
         return Project(name: name,
                        organizationName: "tuist.io",
                        targets: targets)
@@ -20,7 +23,10 @@ extension Project {
     // MARK: - Private
 
     /// Helper function to create a framework target and an associated unit test target
-    private static func makeFrameworkTargets(name: String, platform: Platform) -> [Target] {
+    private static func makeFrameworkTargets(
+        name: String,
+        platform: Platform
+    ) -> [Target] {
         let sources = Target(name: name,
                 platform: platform,
                 product: .framework,
@@ -41,7 +47,11 @@ extension Project {
     }
 
     /// Helper function to create the application target and the unit test target.
-    private static func makeAppTargets(name: String, platform: Platform, dependencies: [TargetDependency]) -> [Target] {
+    private static func makeAppTargets(
+        name: String,
+        platform: Platform,
+        dependencies: [TargetDependency]
+    ) -> [Target] {
         let platform: Platform = platform
         let infoPlist: [String: InfoPlist.Value] = [
             "CFBundleShortVersionString": "1.0",
