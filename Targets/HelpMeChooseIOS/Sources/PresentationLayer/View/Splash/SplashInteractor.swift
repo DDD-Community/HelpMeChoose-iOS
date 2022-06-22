@@ -7,14 +7,16 @@
 //
 
 import ModernRIBs
+import Combine
 
 protocol SplashRouting: ViewableRouting {
-    // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+    func attachLoginRIB()
+    func detachLoginRIB()
 }
 
 protocol SplashPresentable: Presentable {
     var listener: SplashPresentableListener? { get set }
-    // TODO: Declare methods the interactor can invoke the presenter to present data.
+    var showLogin: PassthroughSubject<Void, Never> { get }
 }
 
 protocol SplashListener: AnyObject {
@@ -35,7 +37,8 @@ final class SplashInteractor: PresentableInteractor<SplashPresentable>, SplashIn
 
     override func didBecomeActive() {
         super.didBecomeActive()
-        // TODO: Implement business logic here.
+        
+        bindPresenter()
     }
 
     override func willResignActive() {
@@ -47,5 +50,16 @@ final class SplashInteractor: PresentableInteractor<SplashPresentable>, SplashIn
 extension SplashInteractor: SplashPresentableListener {
     func closeSplash() {
         listener?.didCloseSplash()
+    }
+}
+
+private extension SplashInteractor {
+    private func bindPresenter(){
+        presenter.showLogin
+            .sink(receiveValue: { [weak self] _ in // receiveValue : 값을 받을 때 실행하는 클로저
+                guard let self = self, let router = self.router else { return }
+                router.attachLoginRIB()
+            })
+            .cancelOnDeactivate(interactor: self)
     }
 }
