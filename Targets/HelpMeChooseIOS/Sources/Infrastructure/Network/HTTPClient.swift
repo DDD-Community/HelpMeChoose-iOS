@@ -13,8 +13,6 @@ public protocol HttpClient {
         target: HttpConnectTarget,
         config: HttpConfigration,
         completionHandler: @escaping (Result<[String: Any], HttpError>) -> Void)
-    
-    
 }
 
 public class HttpClientImp {

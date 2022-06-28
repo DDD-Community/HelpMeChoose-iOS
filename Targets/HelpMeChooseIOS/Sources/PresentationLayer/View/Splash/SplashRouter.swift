@@ -8,7 +8,7 @@
 
 import ModernRIBs
 
-protocol SplashInteractable: Interactable, LoginListener {
+protocol SplashInteractable: Interactable, LoginListener, SignUpListener {
     var router: SplashRouting? { get set }
     var listener: SplashListener? { get set }
 }
@@ -26,13 +26,18 @@ final class SplashRouter: ViewableRouter<SplashInteractable, SplashViewControlla
     private let loginBuilder: LoginBuilder
     private var loginRouter: LoginRouting?
     
+    private let signUpBuilder: SignUpBuilder
+    private var signUpRouter: SignUpRouting?
+    
     // TODO: Constructor inject child builder protocols to allow building children.
     init(
         loginBuilder: LoginBuilder,
+        signUpBuilder: SignUpBuilder,
         interactor: SplashInteractable,
         viewController: SplashViewControllable
     ) {
         self.loginBuilder = loginBuilder
+        self.signUpBuilder = signUpBuilder
         super.init(interactor: interactor, viewController: viewController)
         interactor.router = self
     }
@@ -49,6 +54,22 @@ final class SplashRouter: ViewableRouter<SplashInteractable, SplashViewControlla
     
     func detachLoginRIB() {
         guard let router = loginRouter else { return }
+        viewController.dismiss(router.viewControllable, animated: true)
+        detachChild(router)
+        loginRouter = nil
+    }
+ 
+    func attachSignUpRIB() {
+        let router = signUpBuilder.build(withListener: interactor)
+        signUpRouter = router
+        attachChild(router)
+        
+        viewController.present(router.viewControllable, animated: true)
+    }
+    
+    
+    func detachSignUpRIB() {
+        guard let router = signUpRouter else { return }
         viewController.dismiss(router.viewControllable, animated: true)
         detachChild(router)
         loginRouter = nil
