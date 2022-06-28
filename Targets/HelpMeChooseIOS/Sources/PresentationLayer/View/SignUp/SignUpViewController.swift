@@ -1,25 +1,25 @@
 //
-//  LoginViewController.swift
+//  SignUpViewController.swift
 //  HelpMeChooseIOS
 //
-//  Created by 강지윤 on 2022/06/21.
+//  Created by 강지윤 on 2022/06/26.
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
 import ModernRIBs
 import UIKit
-import SnapKit
 import Then
+import SnapKit
 
-protocol LoginPresentableListener: AnyObject {
+protocol SignUpPresentableListener: AnyObject {
     // TODO: Declare properties and methods that the view controller can invoke to perform
     // business logic, such as signIn(). This protocol is implemented by the corresponding
     // interactor class.
 }
 
-final class LoginViewController: UIViewController, LoginPresentable, LoginViewControllable {
+final class SignUpViewController: UIViewController, SignUpPresentable, SignUpViewControllable {
 
-    weak var listener: LoginPresentableListener?
+    weak var listener: SignUpPresentableListener?
     
     lazy var mainScrollView = UIScrollView().then{
         $0.addSubview(contentView)
@@ -34,15 +34,16 @@ final class LoginViewController: UIViewController, LoginPresentable, LoginViewCo
     }
     
     private let titleLabel = UILabel().then {
-        $0.text = "안녕하세요 !\n로그인을 해주세요"
+        $0.text = "회원가입"
         $0.font = .boldFont(size: 26)
         $0.numberOfLines = 2
     }
     
     private lazy var emailTextField = TextFieldView().then{
-        $0.iconImageView.image = UIImage(named: "LoginMy")
-        $0.titleLabel.text = "이메일 아이디"
-        $0.textField.placeholder = "이메일을 입력해 주세요"
+        $0.iconImageView.isHidden = true
+        $0.titleLabel.text = "닉네임"
+        $0.textField.placeholder = "닉네임 입력"
+        $0.addErrorLabel(text: "닉네임은 한글, 영어, 숫자를 사용하여 3~8글자까지 가능합니다.")
         $0.action = { [weak self] in self?.keyboardDown() }
     }
     
@@ -53,20 +54,23 @@ final class LoginViewController: UIViewController, LoginPresentable, LoginViewCo
         $0.action = { [weak self] in self?.keyboardDown() }
     }
     
+    private let findPasswordButton = UIButton().then{
+        $0.setTitle("비밀번호를 잊으셨나요?", for: .normal)
+        $0.setTitleColor(._9E9E9E, for: .normal)
+        $0.titleLabel?.textAlignment = .left
+        $0.titleLabel?.font = .mediumFont(size: 12)
+        $0.backgroundColor = .clear
+    }
+    
     private let loginButton = UIButton().then {
-        $0.setTitle("로그인", for: .normal)
+        $0.setTitle("가입하기", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .boldFont(size: 13)
         $0.backgroundColor = ._D9D9D9
         $0.layer.cornerRadius = 8
     }
     
-    private let findPasswordButton = UIButton().then{
-        $0.setTitle("비밀번호를 잊으셨나요?", for: .normal)
-        $0.setTitleColor(._9E9E9E, for: .normal)
-        $0.titleLabel?.font = .mediumFont(size: 12)
-        $0.backgroundColor = .clear
-    }
+    
     
 
     override func viewDidLoad() {
@@ -119,6 +123,5 @@ final class LoginViewController: UIViewController, LoginPresentable, LoginViewCo
         }
         
     }
-    
     
 }

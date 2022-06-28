@@ -27,6 +27,10 @@ let dependencies = Dependencies(
             requirement: .upToNextMajor(from: "5.0.1")
         ),
         .remote(
+            url: "https://github.com/devxoul/Then",
+            requirement: .upToNextMajor(from: "2")
+        ),
+        .remote(
             url: "https://github.com/CombineCommunity/CombineCocoa.git",
             requirement: .upToNextMajor(from: "0.2.1")
         )

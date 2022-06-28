@@ -15,7 +15,6 @@ protocol SplashDependency: Dependency {
 
 final class SplashComponent: Component<SplashDependency> {
 
-    // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }
 
 // MARK: - Builder
@@ -37,6 +36,7 @@ final class SplashBuilder: Builder<SplashDependency>, SplashBuildable {
         interactor.listener = listener
         
         let loginBuilder = LoginBuilder(dependency: component)
-        return SplashRouter(loginBuilder: loginBuilder, interactor: interactor, viewController: viewController)
+        let signUpBuildeer = SignUpBuilder(dependency: component)
+        return SplashRouter(loginBuilder: loginBuilder, signUpBuilder: signUpBuildeer, interactor: interactor, viewController: viewController)
     }
 }

@@ -40,6 +40,7 @@ let project = Project(
             dependencies: [
                 .external(name: "ModernRIBs"),
                 .external(name: "SnapKit"),
+                .external(name: "Then"),
                 .external(name: "CombineCocoa")
             ]
         ),

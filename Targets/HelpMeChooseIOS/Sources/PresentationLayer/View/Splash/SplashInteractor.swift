@@ -12,6 +12,8 @@ import Combine
 protocol SplashRouting: ViewableRouting {
     func attachLoginRIB()
     func detachLoginRIB()
+    func attachSignUpRIB()
+    func detachSignUpRIB()
 }
 
 protocol SplashPresentable: Presentable {
@@ -58,7 +60,7 @@ private extension SplashInteractor {
         presenter.showLogin
             .sink(receiveValue: { [weak self] _ in // receiveValue : 값을 받을 때 실행하는 클로저
                 guard let self = self, let router = self.router else { return }
-                router.attachLoginRIB()
+                router.attachSignUpRIB()
             })
             .cancelOnDeactivate(interactor: self)
     }
