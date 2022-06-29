@@ -6,7 +6,7 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
-import ModernRIBs
+import RIBs
 
 protocol LoginRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.

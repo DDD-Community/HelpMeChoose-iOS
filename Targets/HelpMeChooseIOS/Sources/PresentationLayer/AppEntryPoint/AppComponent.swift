@@ -6,6 +6,6 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
-import ModernRIBs
+import RIBs
 
 final class AppComponent: Component<EmptyComponent>, RootDependency {}

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import ModernRIBs
+import RIBs
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 

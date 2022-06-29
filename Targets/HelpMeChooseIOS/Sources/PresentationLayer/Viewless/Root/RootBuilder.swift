@@ -6,7 +6,7 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
-import ModernRIBs
+import RIBs
 import UIKit.UIWindow
 
 protocol RootDependency: Dependency {}

@@ -6,7 +6,7 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
-import ModernRIBs
+import RIBs
 
 protocol LoginInteractable: Interactable {
     var router: LoginRouting? { get set }

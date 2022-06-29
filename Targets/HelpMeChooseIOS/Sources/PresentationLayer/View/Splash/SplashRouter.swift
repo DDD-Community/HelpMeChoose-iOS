@@ -6,7 +6,7 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
-import ModernRIBs
+import RIBs
 
 protocol SplashInteractable: Interactable, LoginListener, SignUpListener {
     var router: SplashRouting? { get set }
@@ -16,7 +16,6 @@ protocol SplashInteractable: Interactable, LoginListener, SignUpListener {
 protocol SplashViewControllable: ViewControllable {
     func present(_ viewController: ViewControllable, animated: Bool)
     func dismiss(_ viewController: ViewControllable, animated: Bool)
-    // TODO: Declare methods the router invokes to manipulate the view hierarchy.
 }
 
 final class SplashRouter: ViewableRouter<SplashInteractable, SplashViewControllable>, SplashRouting {

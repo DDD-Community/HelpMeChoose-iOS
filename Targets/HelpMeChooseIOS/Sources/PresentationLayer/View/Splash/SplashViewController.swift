@@ -6,9 +6,9 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
-import ModernRIBs
-import CombineCocoa
-import Combine
+import RIBs
+import RxSwift
+import RxRelay
 import UIKit
 
 protocol SplashPresentableListener: AnyObject {
@@ -16,11 +16,9 @@ protocol SplashPresentableListener: AnyObject {
 }
 
 final class SplashViewController: UIViewController, SplashPresentable, SplashViewControllable {
-   
-    
-
     weak var listener: SplashPresentableListener?
-    var showLogin: PassthroughSubject<Void, Never> = PassthroughSubject<Void, Never>()
+    
+    var showLogin: PublishRelay<Void> = PublishRelay<Void>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +31,7 @@ final class SplashViewController: UIViewController, SplashPresentable, SplashVie
        
         listener?.closeSplash()
        
-        showLogin.send(())
+        showLogin.accept(Void())
         
     }
     
@@ -45,4 +43,6 @@ final class SplashViewController: UIViewController, SplashPresentable, SplashVie
         guard !viewController.uiviewController.isBeingDismissed else { return }
         viewController.uiviewController.dismiss(animated: animated)
     }
+    
+    
 }

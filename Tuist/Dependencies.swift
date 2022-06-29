@@ -19,8 +19,8 @@ import ProjectDescription
 let dependencies = Dependencies(
     swiftPackageManager: [
         .remote(
-            url: "https://github.com/DevYeom/ModernRIBs.git",
-            requirement: .upToNextMajor(from: "1.0.2")
+            url: "https://github.com/uber/RIBs",
+            requirement: .upToNextMajor(from: "0.10.1")
         ),
         .remote(
             url: "https://github.com/SnapKit/SnapKit.git",
@@ -31,9 +31,21 @@ let dependencies = Dependencies(
             requirement: .upToNextMajor(from: "2")
         ),
         .remote(
-            url: "https://github.com/CombineCommunity/CombineCocoa.git",
-            requirement: .upToNextMajor(from: "0.2.1")
-        )
+            url: "https://github.com/RxSwiftCommunity/RxDataSources",
+            requirement: .upToNextMajor(from: "5.0.2")
+        ),
+        .remote(
+            url: "https://github.com/ReactiveX/RxSwift",
+            requirement: .upToNextMajor(from: "6.0.0")
+        ),
+        .remote(
+            url: "https://github.com/ReactorKit/ReactorKit",
+            requirement: .upToNextMajor(from: "3.1.0")
+        ),
+        .remote(
+            url: "https://github.com/onevcat/Kingfisher",
+            requirement: .upToNextMajor(from: "5.0.0")
+        ),
     ],
     platforms: [.iOS]
 )

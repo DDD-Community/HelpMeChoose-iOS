@@ -6,8 +6,9 @@
 //  Copyright © 2022 JYKang. All rights reserved.
 //
 
-import ModernRIBs
-import Combine
+import RIBs
+import RxSwift
+import RxRelay
 
 protocol SplashRouting: ViewableRouting {
     func attachLoginRIB()
@@ -18,7 +19,7 @@ protocol SplashRouting: ViewableRouting {
 
 protocol SplashPresentable: Presentable {
     var listener: SplashPresentableListener? { get set }
-    var showLogin: PassthroughSubject<Void, Never> { get }
+    var showLogin: PublishRelay<Void> { get }
 }
 
 protocol SplashListener: AnyObject {
@@ -56,12 +57,12 @@ extension SplashInteractor: SplashPresentableListener {
 }
 
 private extension SplashInteractor {
-    private func bindPresenter(){
+    fileprivate func bindPresenter() {
         presenter.showLogin
-            .sink(receiveValue: { [weak self] _ in // receiveValue : 값을 받을 때 실행하는 클로저
-                guard let self = self, let router = self.router else { return }
+            .subscribe(onNext: { [weak self] in
+                guard let this = self, let router = this.router else { return }
                 router.attachSignUpRIB()
             })
-            .cancelOnDeactivate(interactor: self)
+            .disposeOnDeactivate(interactor: self)
     }
 }

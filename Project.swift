@@ -38,10 +38,14 @@ let project = Project(
             sources: ["Targets/HelpMeChooseIOS/Sources/**"],
             resources: ["Targets/HelpMeChooseIOS/Resources/**"],
             dependencies: [
-                .external(name: "ModernRIBs"),
+                .external(name: "RIBs"),
                 .external(name: "SnapKit"),
                 .external(name: "Then"),
-                .external(name: "CombineCocoa")
+                .external(name: "RxDataSources"),
+                .external(name: "RxSwift"),
+                .external(name: "RxCocoa"),
+                .external(name: "ReactorKit"),
+                .external(name: "Kingfisher")
             ]
         ),
         Target(
