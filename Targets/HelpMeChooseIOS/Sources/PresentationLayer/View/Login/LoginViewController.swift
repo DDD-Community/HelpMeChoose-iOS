@@ -106,7 +106,7 @@ final class LoginViewController: UIViewController, LoginPresentable, LoginViewCo
         
         loginButton.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(24)
-            make.height.equalTo(44)
+            make.height.equalTo(48)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }

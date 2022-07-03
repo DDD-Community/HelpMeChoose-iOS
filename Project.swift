@@ -4,6 +4,7 @@ import ProjectDescriptionHelpers
 
 
 let infoPlist: [String: InfoPlist.Value] = [
+    "UIAppFonts": ["Pretendard-Black.otf","Pretendard-Bold.otf","Pretendard-ExtraBold.otf","Pretendard-ExtraLight.otf","Pretendard-Light.otf","Pretendard-Medium.otf","Pretendard-Regular.otf","Pretendard-SemiBold.otf","Pretendard-Thin.otf"],
     "CFBundleShortVersionString": "1.0",
     "CFBundleVersion": "1",
     "UILaunchStoryboardName": "LaunchScreen",

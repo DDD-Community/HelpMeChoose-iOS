@@ -34,9 +34,9 @@ final class SplashBuilder: Builder<SplashDependency>, SplashBuildable {
         let viewController = SplashViewController()
         let interactor = SplashInteractor(presenter: viewController)
         interactor.listener = listener
-        
         let loginBuilder = LoginBuilder(dependency: component)
         let signUpBuildeer = SignUpBuilder(dependency: component)
         return SplashRouter(loginBuilder: loginBuilder, signUpBuilder: signUpBuildeer, interactor: interactor, viewController: viewController)
     }
+    
 }
