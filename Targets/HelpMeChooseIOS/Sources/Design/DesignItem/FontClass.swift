@@ -10,17 +10,15 @@ import Foundation
 import UIKit
 extension UIFont{
     static func blackFont(size: CGFloat = 14) -> UIFont {
-        return .systemFont(ofSize: size, weight: .black)
+        return UIFont(name: "Pretendard-Black", size: size)!
     }
     static func regularFont(size: CGFloat = 14) -> UIFont {
-        return .systemFont(ofSize: size, weight: .regular)
+        return UIFont(name: "Pretendard-Regular", size: size)!
     }
     static func mediumFont(size: CGFloat = 14) -> UIFont {
-        return .systemFont(ofSize: size, weight: .medium)
+        return UIFont(name: "Pretendard-Medium", size: size)!
     }
     static func boldFont(size: CGFloat = 14) -> UIFont {
-        return .systemFont(ofSize: size, weight: .bold)
+        return UIFont(name: "Pretendard-Bold", size: size)!
     }
-    
-    
 }

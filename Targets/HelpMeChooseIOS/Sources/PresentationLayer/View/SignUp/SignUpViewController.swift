@@ -27,10 +27,11 @@ final class SignUpViewController: UIViewController, SignUpPresentable, SignUpVie
     
     lazy var contentView = UIView().then{
         $0.addSubview(titleLabel)
+        $0.addSubview(nicknameTextField)
         $0.addSubview(emailTextField)
         $0.addSubview(passwordTextField)
+        $0.addSubview(passwordCheckTextField)
         $0.addSubview(loginButton)
-        $0.addSubview(findPasswordButton)
     }
     
     private let titleLabel = UILabel().then {
@@ -39,34 +40,41 @@ final class SignUpViewController: UIViewController, SignUpPresentable, SignUpVie
         $0.numberOfLines = 2
     }
     
-    private lazy var emailTextField = TextFieldView().then{
+    private lazy var nicknameTextField = TextFieldView().then{
         $0.iconImageView.isHidden = true
         $0.titleLabel.text = "닉네임"
         $0.textField.placeholder = "닉네임 입력"
         $0.addErrorLabel(text: "닉네임은 한글, 영어, 숫자를 사용하여 3~8글자까지 가능합니다.")
         $0.action = { [weak self] in self?.keyboardDown() }
     }
+
+    private lazy var emailTextField = TextFieldView().then{
+        $0.iconImageView.image = UIImage(named: "LoginPassword")
+        $0.titleLabel.text = "이메일"
+        $0.textField.placeholder = "이메일"
+        $0.action = { [weak self] in self?.keyboardDown() }
+    }
     
     private lazy var passwordTextField = TextFieldView().then{
         $0.iconImageView.image = UIImage(named: "LoginPassword")
         $0.titleLabel.text = "비밀번호"
+        $0.textField.placeholder = "비밀번호를 입력"
+        $0.action = { [weak self] in self?.keyboardDown() }
+    }
+   
+    private lazy var passwordCheckTextField = TextFieldView().then{
+        $0.iconImageView.image = UIImage(named: "LoginPassword")
+        $0.titleLabel.text = "비밀번호 재입력"
         $0.textField.placeholder = "비밀번호를 입력해주세요"
         $0.action = { [weak self] in self?.keyboardDown() }
     }
     
-    private let findPasswordButton = UIButton().then{
-        $0.setTitle("비밀번호를 잊으셨나요?", for: .normal)
-        $0.setTitleColor(._9E9E9E, for: .normal)
-        $0.titleLabel?.textAlignment = .left
-        $0.titleLabel?.font = .mediumFont(size: 12)
-        $0.backgroundColor = .clear
-    }
     
     private let loginButton = UIButton().then {
         $0.setTitle("가입하기", for: .normal)
         $0.setTitleColor(.black, for: .normal)
         $0.titleLabel?.font = .boldFont(size: 13)
-        $0.backgroundColor = ._D9D9D9
+        $0.backgroundColor = ._F8600D
         $0.layer.cornerRadius = 8
     }
     
@@ -96,8 +104,14 @@ final class SignUpViewController: UIViewController, SignUpPresentable, SignUpVie
             make.trailing.equalToSuperview()
         }
         
-        emailTextField.snp.makeConstraints { make in
+        nicknameTextField.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(48)
+            make.leading.equalToSuperview().offset(20)
+            make.trailing.equalToSuperview()
+        }
+        
+        emailTextField.snp.makeConstraints { make in
+            make.top.equalTo(nicknameTextField.snp.bottom).offset(24)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
@@ -108,19 +122,20 @@ final class SignUpViewController: UIViewController, SignUpPresentable, SignUpVie
             make.trailing.equalToSuperview().offset(-20)
         }
         
-        loginButton.snp.makeConstraints { make in
+        passwordCheckTextField.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(24)
-            make.height.equalTo(44)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
         }
         
-        findPasswordButton.snp.makeConstraints { make in
-            make.top.equalTo(loginButton.snp.bottom).offset(20)
+        loginButton.snp.makeConstraints { make in
+            make.top.equalTo(passwordCheckTextField.snp.bottom).offset(24)
+            make.height.equalTo(48)
             make.leading.equalToSuperview().offset(20)
             make.trailing.equalToSuperview().offset(-20)
             make.bottom.equalToSuperview()
         }
+       
         
     }
     
